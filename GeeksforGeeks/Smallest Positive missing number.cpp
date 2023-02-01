@@ -1,64 +1,60 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-
 // } Driver Code Ends
-
-class Solution
-{
-    public:
-    //Function to find the smallest positive number missing from the array.
-    int missingNumber(int arr[], int n) 
-    { 
-        int count=0;
+class Solution{
+public:
+    int *findTwoElement(int *arr, int n) {
         sort(arr,arr+n);
-        int f=0,k=0;
-        int d=arr[0];
+        int b=0,a=-1;
+        int f1=0,f2=0;
         for(int i=1;i<n;i++)
-        {   if(arr[i]==0||d==0)
-            {f=1;
-            if(arr[i]>=0)
-            {   k=1;
-                if(!(1+d==arr[i] ||d-1==arr[i]))
-                   {
-                       return arr[i]+1;
-                   }  
+            {   
+                if(arr[i]==arr[i-1])
+                {
+                 b=arr[i];
+                 f1=1; 
+                }
+                if(arr[i-1]+1!=arr[i] && arr[i-1]!=arr[i] )
+                {
+                 a=arr[i-1]+1;
+                 f2=1;
+                }
+                if(f1 && f2)
+                   break;
             }
-             else
-             d=arr[i];
-            }
-            
-        }   
-            
-        if(k==0)return 0;
-        return arr[n-1]+1;
-    } 
+       
+        if(arr[0]!=1)a=1;
+        if(a==-1)a=n;
+        
+        arr[0]=b,arr[1]=a;
+        return arr;
+        
+        
+        
+        
+        
+    }
 };
 
 //{ Driver Code Starts.
 
-int missingNumber(int arr[], int n);
-
-int main() { 
-    
-    //taking testcases
+int main() {
     int t;
-    cin>>t;
-    while(t--){
-        
-        //input number n
+    cin >> t;
+    while (t--) {
         int n;
-        cin>>n;
-        int arr[n];
-        
-        //adding elements to the array
-        for(int i=0; i<n; i++)cin>>arr[i];
-        
+        cin >> n;
+        int a[n];
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
         Solution ob;
-        //calling missingNumber()
-        cout<<ob.missingNumber(arr, n)<<endl;
+        auto ans = ob.findTwoElement(a, n);
+        cout << ans[0] << " " << ans[1] << "\n";
     }
-    return 0; 
-} 
+    return 0;
+}
 // } Driver Code Ends
